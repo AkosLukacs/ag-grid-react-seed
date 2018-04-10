@@ -23,6 +23,8 @@ module.exports = {
         extensions: ['.js', '.jsx']
     },
 
+    mode: 'production',
+
     module: {
         rules: [
             {
@@ -46,10 +48,16 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: 'config/index.html'
-        }),
+        })
+    ],
 
-        new webpack.optimize.DedupePlugin(),
-
-        new webpack.optimize.UglifyJsPlugin()
-    ]
+    optimization: {
+        namedModules: true,
+        splitChunks: {
+            name: 'vendor',
+            minChunks: 2
+        },
+        noEmitOnErrors: true,
+        concatenateModules: true
+    }
 };
